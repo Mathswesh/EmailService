@@ -1,24 +1,16 @@
 package org.example.notificationsservice.Mail;
 
-import jakarta.mail.MessagingException;
-import jakarta.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
-import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
-
-import java.io.FileInputStream;
-import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.Map;
 
 @Component
 public class EmailService {
 
-    private final JavaMailSender mailSender;
+    @Autowired
+    private JavaMailSender mailSender;
 
     @Value("${spring.mail.username}")
     private String from;
@@ -33,8 +25,7 @@ public class EmailService {
 
             mailSender.send(message);
             return "Email sent successfully";
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             return "Error sending email";
         }
     }
